@@ -1,28 +1,49 @@
-var url =
-  `https://www.quandl.com/api/v3/datasets/WIKI/AMZN.json?start_date=2016-10-01&end_date=2017-10-01&api_key=${apiKey}`;
+// Create the Traces
+var trace1 = {
+  x: data.year,
+  y: data.high_jump,
+  mode: "markers",
+  type: "scatter",
+  name: "high jump",
+  marker: {
+    color: "#2077b4",
+    symbol: "hexagram"
+  }
+};
 
-/**
- * Helper function to select stock data
- * Returns an array of values
- * @param {array} data
- * @param {integer} index
- * index 0 - Date
- * index 1 - Open
- * index 2 - High
- * index 3 - Low
- * index 4 - Volume
- */
-function unpack(data, index) {
-  return data.map(function(row) {
-    return row[index];
-  });
-}
+var trace2 = {
+  x: data.year,
+  y: data.discus_throw,
+  mode: "markers",
+  type: "scatter",
+  name: "discus throw",
+  marker: {
+    color: "orange",
+    symbol: "diamond-x"
+  }
+};
 
-/**
- * Fetch data and build the timeseries plot
- */
-function buildPlot() {
-  // @TODO: YOUR CODE HERE
-}
+var trace3 = {
+  x: data.year,
+  y: data.long_jump,
+  mode: "markers",
+  type: "scatter",
+  name: "long jump",
+  marker: {
+    color: "rgba(156, 165, 196, 1.0)",
+    symbol: "cross"
+  }
+};
 
-buildPlot();
+// Create the data array for the plot
+var data = [trace1, trace2, trace3];
+
+// Define the plot layout
+var layout = {
+  title: "Olympic trends over the years",
+  xaxis: { title: "Year" },
+  yaxis: { title: "Measurement (in)" }
+};
+
+// Plot the chart to a div tag with id "plot"
+Plotly.newPlot("plot", data, layout);
