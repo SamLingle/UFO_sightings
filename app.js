@@ -1,115 +1,65 @@
-// from data.js
-var tableData = data;
+// Get a reference to the table body
+var tbody = d3.select("tbody");
 
-// YOUR CODE HERE!
+// Console.log the ufo data from data.js
+console.log(data);
 
-// Get references to the tbody element, input field and button
-var $tbody = document.querySelector("tbody");
-var $dateInput = document.querySelector("#datetime");
-var $stateInput = document.querySelector("#state");
-var $searchBtn = document.querySelector("#search");
-var $cityInput = document.querySelector("#city");
-var $countryInput = document.querySelector("#country");
-var $shapeInput = document.querySelector("#shape");
+ // Step 1: Loop Through `data` and console.log each weather report object
+ data.forEach(function(sighting) {
+   console.log(sighting);
+ });
 
+ // Step 2:  Use d3 to append one table row `tr` for each weather report object
+ // Don't worry about adding cells or text yet, just try appending the `tr` elements.
+ data.forEach(function(sighting) {
+   console.log(sighting);
+   var row = tbody.append("tr");
+ });
 
-// Add an event listener to the searchButton, call handleSearchButtonClick when clicked
-$searchBtn.addEventListener("click", handleSearchButtonClick);
+ // Step 3:  Use `Object.entries` to console.log each weather report value
+ data.forEach(function(sighting) {
+   console.log(sighting);
+   var row = tbody.append("tr");
 
-// Set filteredAddresses to dataSet initially
-var filteredTable = dataSet;
+   Object.entries(sighting).forEach(function([key, value]) {
+     console.log(key, value);
+   });
+ });
 
-// renderTable renders the filteredAddresses to the tbody
-function renderTable() {
-  $tbody.innerHTML = "";
-  for (var i = 0; i < filteredTable.length; i++) {
-    // Get get the current address object and its fields
-    var address = filteredTable[i];
-    console.log(address)
-    var fields = Object.keys(address);
-    // Create a new row in the tbody, set the index to be i + startingIndex
-    var $row = $tbody.insertRow(i);
-    for (var j = 0; j < fields.length; j++) {
-      // For every field in the address object, create a new cell at set its inner text to be the current value at the current address's field
-      var field = fields[j];
-      var $cell = $row.insertCell(j);
-      $cell.innerText = address[field];
-    }
-  }
-}
+ // Step 4: Use d3 to append 1 cell per weather report value (weekday, date, high, low)
+ data.forEach(function(sighting) {
+   console.log(sighting);
+      var row = tbody.append("tr");
 
-function handleSearchButtonClick() {
-  // Format the user's search by removing leading and trailing whitespace, lowercase the string
-  var filterDate = $dateInput.value;
-  var filterState = $stateInput.value.trim().toLowerCase();
-  var filterCity = $cityInput.value.trim().toLowerCase();
-  var filterCountry = $countryInput.value.trim().toLowerCase();
-  var filterShape = $shapeInput.value.trim().toLowerCase();
+  Object.entries(sighting).forEach(function([key, value]) {
+     console.log(key, value);
+     // Append a cell to the row for each value
+     // in the weather report object
+     var cell = tbody.append("td");
+   });
+ });
 
-  // Set filteredAddresses to an array of all addresses whose "state" matches the filter
-  if (filterDate != "")
-  {
-    filteredTable = dataSet.filter(function(address) 
-    {
-      var addressDate = address.datetime; 
-    
-    // If true, add the address to the filteredAddresses, otherwise don't add it to filteredAddresses
-    return addressDate === filterDate;
-    });
-  }
-  else {filteredTable};
-  
+ // Step 5: Use d3 to update each cell's text with
+ // weather report values (weekday, date, high, low)
+ data.forEach(function(sighting) {
+   console.log(sighting);
+   var row = tbody.append("tr");
+   Object.entries(sighting.forEach(function([key, value]) {
+     console.log(key, value);
+     // Append a cell to the row for each value
+     // in the weather report object
+     var cell = tbody.append("td");
+     cell.text(value);
+   });
+ });
 
-  if(filterState != "")
-  {
-    filteredTable = filteredTable.filter(function(address)
-    {
-      var addressState = address.state;
-      return addressState === filterState;
-    });
-  }
-  else{filteredTable};
-
-  if(filterCity != "")
-  {
-    filteredTable = filteredTable.filter(function(address)
-    {
-      var addressCity = address.city;
-      return addressCity === filterCity;
-    });
-  }
-
-  else{filteredTable};
-
-  if(filterCountry != "")
-  {
-    filteredTable = filteredTable.filter(function(address)
-    {
-      var addressCountry = address.country;
-      return addressCountry === filterCountry;
-    });
-  }
-  else{filteredTable};
-
-  if(filterShape != "")
-  {
-    filteredTable = filteredTable.filter(function(address)
-    {
-      var addressShape = address.shape;
-      return addressShape === filterShape;
-    });
-  }
-  else{filteredTable};
-
-renderTable();
-
-}
-
-// Render the table for the first time on page load
-renderTable();
-
-//Add pagination to the table to show 10 -100 entries per page
-
-$(document).ready(function() {
-  $('#table').DataTable();
+// BONUS: Refactor to use Arrow Functions!
+data.forEach((sighting) => {
+  var row = tbody.append("tr");
+  Object.entries(sighting).forEach(([key, value]) => {
+    var cell = tbody.append("td");
+    cell.text(value);
+  });
 });
+
+
