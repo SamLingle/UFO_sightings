@@ -1,3 +1,8 @@
+// from data.js
+var tableData = data;
+
+// YOUR CODE HERE!
+
 // Get references to the tbody element, input field and button
 var $tbody = document.querySelector("tbody");
 var $dateInput = document.querySelector("#datetime");
