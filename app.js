@@ -1,65 +1,56 @@
-// Get a reference to the table body
+var tableData = data;
+
+// use select to get references to the HTML.
 var tbody = d3.select("tbody");
+var dateTime = d3.select("#datetime")
+var submit = d3.select("#filter-btn")
 
-// Console.log the ufo data from data.js
-console.log(data);
-
- // Step 1: Loop Through `data` and console.log each weather report object
- data.forEach(function(sighting) {
-   console.log(sighting);
- });
-
- // Step 2:  Use d3 to append one table row `tr` for each weather report object
- // Don't worry about adding cells or text yet, just try appending the `tr` elements.
- data.forEach(function(sighting) {
-   console.log(sighting);
-   var row = tbody.append("tr");
- });
-
- // Step 3:  Use `Object.entries` to console.log each weather report value
- data.forEach(function(sighting) {
-   console.log(sighting);
-   var row = tbody.append("tr");
-
-   Object.entries(sighting).forEach(function([key, value]) {
-     console.log(key, value);
-   });
- });
-
- // Step 4: Use d3 to append 1 cell per weather report value (weekday, date, high, low)
- data.forEach(function(sighting) {
-   console.log(sighting);
-      var row = tbody.append("tr");
-
-  Object.entries(sighting).forEach(function([key, value]) {
-     console.log(key, value);
-     // Append a cell to the row for each value
-     // in the weather report object
-     var cell = tbody.append("td");
-   });
- });
-
- // Step 5: Use d3 to update each cell's text with
- // weather report values (weekday, date, high, low)
- data.forEach(function(sighting) {
-   console.log(sighting);
-   var row = tbody.append("tr");
-   Object.entries(sighting.forEach(function([key, value]) {
-     console.log(key, value);
-     // Append a cell to the row for each value
-     // in the weather report object
-     var cell = tbody.append("td");
-     cell.text(value);
-   });
- });
-
-// BONUS: Refactor to use Arrow Functions!
-data.forEach((sighting) => {
+// Show unfiltered table upon loading page.
+data.forEach(function(sighting) {
+  console.log(sighting);
   var row = tbody.append("tr");
-  Object.entries(sighting).forEach(([key, value]) => {
+  Object.entries(sighting).forEach(function([key, value]) {
+    console.log(key, value);
     var cell = tbody.append("td");
     cell.text(value);
   });
 });
+
+// Create a function to update the table.
+function updateTable(dataset) {
+  // Clear the current table.
+  tbody.html('');
+  dataset.forEach(function(datetime) {
+    var row = tbody.append("tr");
+    Object.entries(datetime).forEach(function([key,value])  {
+      var cell = tbody.append("td");
+      cell.text(value);
+    });
+  });
+}
+
+// Create a Filter by date function by comparing strings for similarity.
+function filterByDate(dataset) {
+  var filteredData = dataset.filter(function (data) {
+    return data.datetime == dateTime.value();
+  });
+  return filteredData;
+}
+
+
+// Add event listener.
+submit.on("click", filterByDate(), {
+  // Prevent page from automatically refreshing.
+  d3.event.preventDefault();
+  // retrieves the date the user has entered into the input box. 
+  // Created a local instance of datetime
+  var inputElement = dateTime;
+  var inputValue = inputElement.property("value");
+  // loop through array and check for matching dates.
+  var result = filterByDate(data);
+  updateTable(result);
+});
+
+filter.on("click", handleClick);
 
 
